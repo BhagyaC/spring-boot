@@ -47,7 +47,6 @@ public class Example {
 ----
 
 
-
 == Getting Help
 
 Are you having trouble with Spring Boot? We want to help!
