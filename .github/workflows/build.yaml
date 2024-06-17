@@ -19,7 +19,7 @@ jobs:
           uses: SonarSource/sonarcloud-github-action@master
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-            SONAR_TOKEN: fed0421670c4f97fa2aa58b26c9498732420e2d7
+            SONAR_TOKEN: ce25938b1058675ab9411053bb2da814025554e2
   build-and-deploy-snapshot:
     name: Build and Deploy Snapshot
     runs-on: ubuntu-latest
