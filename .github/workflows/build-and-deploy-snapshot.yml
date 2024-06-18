@@ -44,6 +44,24 @@ jobs:
           status: ${{ job.status }}
           build-scan-url: ${{ steps.build-and-publish.outputs.build-scan-url }}
           run-name: ${{ format('{0} | Linux | Java 17', github.ref_name) }}
+
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Gradle packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: c4f62627712a725f9f7914fae0c2abe64b92498f
+        run: ./gradlew build sonar --info
     outputs:
       version: ${{ steps.build-and-publish.outputs.version }}
   verify:
