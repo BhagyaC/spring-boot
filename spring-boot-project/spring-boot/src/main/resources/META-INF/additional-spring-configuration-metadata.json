@@ -104,6 +104,13 @@
       "sourceType": "org.springframework.boot.context.logging.LoggingApplicationListener"
     },
     {
+      "name": "logging.include-application-group",
+      "type": "java.lang.Boolean",
+      "description": "Whether to include the application group in the logs.",
+      "sourceType": "org.springframework.boot.context.logging.LoggingApplicationListener",
+      "defaultValue": true
+    },
+    {
       "name": "logging.include-application-name",
       "type": "java.lang.Boolean",
       "description": "Whether to include the application name in the logs.",
@@ -170,7 +177,7 @@
       "type": "java.lang.String",
       "description": "Appender pattern for output to the console. Supported only with the default Logback setup.",
       "sourceType": "org.springframework.boot.context.logging.LoggingApplicationListener",
-      "defaultValue": "%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd'T'HH:mm:ss.SSSXXX}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"
+      "defaultValue": "%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd'T'HH:mm:ss.SSSXXX}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:-}){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"
     },
     {
       "name": "logging.pattern.correlation",
@@ -190,7 +197,7 @@
       "type": "java.lang.String",
       "description": "Appender pattern for output to a file. Supported only with the default Logback setup.",
       "sourceType": "org.springframework.boot.context.logging.LoggingApplicationListener",
-      "defaultValue": "%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd'T'HH:mm:ss.SSSXXX}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"
+      "defaultValue": "%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd'T'HH:mm:ss.SSSXXX}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:-} --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"
     },
     {
       "name": "logging.pattern.level",
@@ -217,6 +224,36 @@
       "defaultValue": true
     },
     {
+      "name": "logging.structured.ecs.service.environment",
+      "type": "java.lang.String",
+      "description": "Structured ECS service environment."
+    },
+    {
+      "name": "logging.structured.ecs.service.name",
+      "type": "java.lang.String",
+      "description": "Structured ECS service name (defaults to 'spring.application.name')."
+    },
+    {
+      "name": "logging.structured.ecs.service.node-name",
+      "type": "java.lang.String",
+      "description": "Structured ECS service node name."
+    },
+    {
+      "name": "logging.structured.ecs.service.version",
+      "type": "java.lang.String",
+      "description": "Structured ECS service version."
+    },
+    {
+      "name": "logging.structured.format.console",
+      "type": "java.lang.String",
+      "description": "Structured logging format for output to the console. Must be either a format id or a fully qualified class name."
+    },
+    {
+      "name": "logging.structured.format.file",
+      "type": "java.lang.String",
+      "description": "Structured logging format for output to a file. Must be either a format id or a fully qualified class name."
+    },
+    {
       "name": "logging.threshold.console",
       "type": "java.lang.String",
       "description": "Log level threshold for console output.",
@@ -227,6 +264,11 @@
       "type": "java.lang.String",
       "description": "Log level threshold for file output.",
       "defaultValue": "TRACE"
+    },
+    {
+      "name": "spring.application.group",
+      "type": "java.lang.String",
+      "description": "Application group."
     },
     {
       "name": "spring.application.index",
@@ -572,6 +614,44 @@
       "providers": [
         {
           "name": "any"
+        }
+      ]
+    },
+    {
+      "name": "logging.structured.format.console",
+      "values": [
+        {
+          "value": "ecs"
+        },
+        {
+          "value": "logstash"
+        }
+      ],
+      "providers": [
+        {
+          "name": "handle-as",
+          "parameters": {
+            "target": "java.lang.Class"
+          }
+        }
+      ]
+    },
+    {
+      "name": "logging.structured.format.file",
+      "values": [
+        {
+          "value": "ecs"
+        },
+        {
+          "value": "logstash"
+        }
+      ],
+      "providers": [
+        {
+          "name": "handle-as",
+          "parameters": {
+            "target": "java.lang.Class"
+          }
         }
       ]
     },

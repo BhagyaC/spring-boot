@@ -82,7 +82,7 @@ Thanks to relaxed binding of `Environment` values, you can also use configprop:s
 
 To switch off the HTTP endpoints completely but still create a `WebApplicationContext`, use `server.port=-1` (doing so is sometimes useful for testing).
 
-For more details, see "`xref:reference:web/servlet.adoc#web.servlet.embedded-container.customizing[Customizing Embedded Servlet Containers]`" in the '`Spring Boot Features`' section, or the xref:api:java/org/springframework/boot/autoconfigure/web/ServerProperties.html[`ServerProperties`] class.
+For more details, see xref:reference:web/servlet.adoc#web.servlet.embedded-container.customizing[Customizing Embedded Servlet Containers] in the '`Spring Boot Features`' section, or the javadoc:org.springframework.boot.autoconfigure.web.ServerProperties[] class.
 
 
 
@@ -148,7 +148,7 @@ You can configure this behavior by setting the configprop:server.compression.mim
 == Configure SSL
 
 SSL can be configured declaratively by setting the various `+server.ssl.*+` properties, typically in `application.properties` or `application.yaml`.
-See xref:api:java/org/springframework/boot/web/server/Ssl.html[`Ssl`] for details of all of the supported properties.
+See javadoc:org.springframework.boot.web.server.Ssl[] for details of all of the supported properties.
 
 The following example shows setting SSL properties using a Java KeyStore file:
 
@@ -295,12 +295,12 @@ Undertow supports `h2c` and `h2` out of the box.
 == Configure the Web Server
 
 Generally, you should first consider using one of the many available configuration keys and customize your web server by adding new entries in your `application.properties` or `application.yaml` file.
-See "`xref:properties-and-configuration.adoc#howto.properties-and-configuration.discover-build-in-options-for-external-properties[Discover Built-in Options for External Properties]`").
+See xref:properties-and-configuration.adoc#howto.properties-and-configuration.discover-build-in-options-for-external-properties[]).
 The `server.{asterisk}` namespace is quite useful here, and it includes namespaces like `server.tomcat.{asterisk}`, `server.jetty.{asterisk}` and others, for server-specific features.
-See the list of xref:appendix:application-properties/index.adoc[Common Application Properties].
+See the list of xref:appendix:application-properties/index.adoc[].
 
 The previous sections covered already many common use cases, such as compression, SSL or HTTP/2.
-However, if a configuration key does not exist for your use case, you should then look at xref:api:java/org/springframework/boot/web/server/WebServerFactoryCustomizer.html[`WebServerFactoryCustomizer`].
+However, if a configuration key does not exist for your use case, you should then look at javadoc:org.springframework.boot.web.server.WebServerFactoryCustomizer[].
 You can declare such a component and get access to the server factory relevant to your choice: you should select the variant for the chosen Server (Tomcat, Jetty, Reactor Netty, Undertow) and the chosen web stack (servlet or reactive).
 
 The example below is for Tomcat with the `spring-boot-starter-web` (servlet stack):
@@ -346,8 +346,8 @@ When you do so, auto-configured customizers are still applied on your custom fac
 
 In a servlet stack application, that is with the `spring-boot-starter-web`, there are two ways to add `Servlet`, `Filter`, `ServletContextListener`, and the other listeners supported by the Servlet API to your application:
 
-* xref:webserver.adoc#howto.webserver.add-servlet-filter-listener.spring-bean[Add a Servlet, Filter, or Listener by Using a Spring Bean]
-* xref:webserver.adoc#howto.webserver.add-servlet-filter-listener.using-scanning[Add Servlets, Filters, and Listeners by Using Classpath Scanning]
+* xref:webserver.adoc#howto.webserver.add-servlet-filter-listener.spring-bean[]
+* xref:webserver.adoc#howto.webserver.add-servlet-filter-listener.using-scanning[]
 
 
 
@@ -368,7 +368,7 @@ If no `dispatcherType` is specified on a filter registration, `REQUEST` is used.
 This aligns with the servlet specification's default dispatcher type.
 ====
 
-Like any other Spring bean, you can define the order of servlet filter beans; please make sure to check the "`xref:reference:web/servlet.adoc#web.servlet.embedded-container.servlets-filters-listeners.beans[Registering Servlets, Filters, and Listeners as Spring Beans]`" section.
+Like any other Spring bean, you can define the order of servlet filter beans; please make sure to check the xref:reference:web/servlet.adoc#web.servlet.embedded-container.servlets-filters-listeners.beans[] section.
 
 
 
@@ -465,7 +465,7 @@ You can use them in your application by setting configprop:server.forward-header
 TIP: If you are using Tomcat and terminating SSL at the proxy, configprop:server.tomcat.redirect-context-root[] should be set to `false`.
 This allows the `X-Forwarded-Proto` header to be honored before any redirects are performed.
 
-NOTE: If your application runs xref:api:java/org/springframework/boot/cloud/CloudPlatform.html#enum-constant-summary[in a supported Cloud Platform], the configprop:server.forward-headers-strategy[] property defaults to `NATIVE`.
+NOTE: If your application runs javadoc:org.springframework.boot.cloud.CloudPlatform#enum-constant-summary[in a supported Cloud Platform], the configprop:server.forward-headers-strategy[] property defaults to `NATIVE`.
 In all other instances, it defaults to `NONE`.
 
 

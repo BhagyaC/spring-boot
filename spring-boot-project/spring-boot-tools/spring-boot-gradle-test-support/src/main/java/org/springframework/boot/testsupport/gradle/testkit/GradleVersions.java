@@ -32,12 +32,11 @@ public final class GradleVersions {
 	private GradleVersions() {
 	}
 
-	@SuppressWarnings("UnstableApiUsage")
 	public static List<String> allCompatible() {
 		if (isJavaVersion(JavaVersion.VERSION_20)) {
-			return Arrays.asList("8.1.1", "8.8");
+			return Arrays.asList("8.3", "8.9");
 		}
-		return Arrays.asList("7.5.1", GradleVersion.current().getVersion(), "8.0.2", "8.8");
+		return Arrays.asList(GradleVersion.current().getVersion(), "8.3", "8.9");
 	}
 
 	public static String minimumCompatible() {

@@ -1346,6 +1346,9 @@
         "level": "error",
         "reason": "Removed in Flyway 10"
       }
+    },{
+      "name": "spring.flyway.community-db-support-enabled",
+      "defaultValue": false
     },
     {
       "name": "spring.flyway.dry-run-output",
@@ -1581,6 +1584,27 @@
       "deprecation": {
         "replacement": "spring.mvc.log-request-details",
         "level": "error"
+      }
+    },
+    {
+      "name": "spring.influx.password",
+      "deprecation": {
+        "level": "error",
+        "reason": "The new InfluxDb Java client provides Spring Boot integration."
+      }
+    },
+    {
+      "name": "spring.influx.url",
+      "deprecation": {
+        "level": "error",
+        "reason": "The new InfluxDb Java client provides Spring Boot integration."
+      }
+    },
+    {
+      "name": "spring.influx.user",
+      "deprecation": {
+        "level": "error",
+        "reason": "The new InfluxDb Java client provides Spring Boot integration."
       }
     },
     {
@@ -2072,6 +2096,13 @@
     {
       "name": "spring.mvc.pathmatch.matching-strategy",
       "defaultValue": "path-pattern-parser"
+    },
+    {
+      "name": "spring.mvc.throw-exception-if-no-handler-found",
+      "deprecation": {
+      	"reason": "DispatcherServlet property is deprecated for removal and should no longer need to be configured.",
+      	"level": "error"
+      }
     },
     {
       "name": "spring.neo4j.security.trust-strategy",

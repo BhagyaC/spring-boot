@@ -215,7 +215,10 @@ class DefaultErrorAttributesTests {
 		MethodParameter parameter = new MethodParameter(method, 0);
 		MethodValidationResult methodValidationResult = MethodValidationResult.create(target, method,
 				List.of(new ParameterValidationResult(parameter, -1,
-						List.of(new ObjectError("beginIndex", "beginIndex is negative")), null, null, null)));
+						List.of(new ObjectError("beginIndex", "beginIndex is negative")), null, null, null,
+						(error, sourceType) -> {
+							throw new IllegalArgumentException("No source object of the given type");
+						})));
 		HandlerMethodValidationException ex = new HandlerMethodValidationException(methodValidationResult);
 		testErrors(methodValidationResult.getAllErrors(),
 				"Validation failed for method='public java.lang.String java.lang.String.substring(int)'. Error count: 1",
@@ -309,6 +312,22 @@ class DefaultErrorAttributesTests {
 
 		}.getErrorAttributes(this.webRequest, ErrorAttributeOptions.of(Include.MESSAGE));
 		assertThat(attributes).containsEntry("message", "custom message");
+	}
+
+	@Test
+	void excludeStatus() {
+		this.request.setAttribute("jakarta.servlet.error.status_code", 404);
+		Map<String, Object> attributes = this.errorAttributes.getErrorAttributes(this.webRequest,
+				ErrorAttributeOptions.defaults().excluding(Include.STATUS));
+		assertThat(attributes).doesNotContainKey("status");
+	}
+
+	@Test
+	void excludeError() {
+		this.request.setAttribute("jakarta.servlet.error.status_code", 404);
+		Map<String, Object> attributes = this.errorAttributes.getErrorAttributes(this.webRequest,
+				ErrorAttributeOptions.defaults().excluding(Include.ERROR));
+		assertThat(attributes).doesNotContainKey("error");
 	}
 
 }

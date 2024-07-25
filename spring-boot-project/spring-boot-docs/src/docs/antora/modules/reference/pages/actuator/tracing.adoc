@@ -21,7 +21,7 @@ Spring Boot ships auto-configuration for the following tracers:
 == Getting Started
 
 We need an example application that we can use to get started with tracing.
-For our purposes, the simple "`Hello World!`" web application that's covered in the "`xref:tutorial:first-application/index.adoc[Developing Your First Spring Boot Application]`" section will suffice.
+For our purposes, the simple "`Hello World!`" web application that's covered in the xref:tutorial:first-application/index.adoc[] section will suffice.
 We're going to use the OpenTelemetry tracer with Zipkin as trace backend.
 
 To recap, our main application code looks like this:
@@ -98,9 +98,9 @@ It's also worth mentioning that configprop:logging.pattern.correlation[] contain
 [[actuator.micrometer-tracing.propagating-traces]]
 == Propagating Traces
 
-To automatically propagate traces over the network, use the auto-configured xref:io/rest-client.adoc#io.rest-client.resttemplate[`RestTemplateBuilder`] or xref:io/rest-client.adoc#io.rest-client.webclient[`WebClient.Builder`] to construct the client.
+To automatically propagate traces over the network, use the auto-configured xref:io/rest-client.adoc#io.rest-client.resttemplate[`RestTemplateBuilder`], xref:io/rest-client.adoc#io.rest-client.restclient[`RestClient.Builder`] or xref:io/rest-client.adoc#io.rest-client.webclient[`WebClient.Builder`] to construct the client.
 
-WARNING: If you create the `WebClient` or the `RestTemplate` without using the auto-configured builders, automatic trace propagation won't work!
+WARNING: If you create the `RestTemplate`, the `RestClient` or the `WebClient` without using the auto-configured builders, automatic trace propagation won't work!
 
 
 
@@ -156,8 +156,6 @@ Tracing with OpenZipkin Brave and reporting to Zipkin requires the following dep
 
 * `io.micrometer:micrometer-tracing-bridge-brave` - bridges the Micrometer Observation API to Brave.
 * `io.zipkin.reporter2:zipkin-reporter-brave` - reports traces to Zipkin.
-
-NOTE: If your project doesn't use Spring MVC or Spring WebFlux, the `io.zipkin.reporter2:zipkin-sender-urlconnection` dependency is needed, too.
 
 Use the `management.zipkin.tracing.*` configuration properties to configure reporting to Zipkin.
 
@@ -218,4 +216,4 @@ For the example above, setting this property to `baggage1` results in an MDC ent
 == Tests
 
 Tracing components which are reporting data are not auto-configured when using `@SpringBootTest`.
-See xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.tracing[the testing section] for more details.
+See xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.tracing[] for more details.

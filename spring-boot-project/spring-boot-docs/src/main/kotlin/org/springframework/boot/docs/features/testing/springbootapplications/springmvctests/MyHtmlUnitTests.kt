@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2022 the original author or authors.
+ * Copyright 2012-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,19 +16,19 @@
 
 package org.springframework.boot.docs.features.testing.springbootapplications.springmvctests
 
-import com.gargoylesoftware.htmlunit.WebClient
-import com.gargoylesoftware.htmlunit.html.HtmlPage
 import org.assertj.core.api.Assertions.assertThat
+import org.htmlunit.WebClient
+import org.htmlunit.html.HtmlPage
 import org.junit.jupiter.api.Test
 import org.mockito.BDDMockito.given
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
-import org.springframework.boot.test.mock.mockito.MockBean
+import org.springframework.test.context.bean.override.mockito.MockitoBean
 
 @WebMvcTest(UserVehicleController::class)
 class MyHtmlUnitTests(@Autowired val webClient: WebClient) {
 
-	@MockBean
+	@MockitoBean
 	lateinit var userVehicleService: UserVehicleService
 
 	@Test

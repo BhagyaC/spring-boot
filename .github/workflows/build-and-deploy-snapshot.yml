@@ -3,8 +3,6 @@ on:
   push:
     branches:
       - main
-permissions:
-  actions: write
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
 jobs:
@@ -27,15 +25,11 @@ jobs:
           uri: 'https://repo.spring.io'
           username: ${{ secrets.ARTIFACTORY_USERNAME }}
           password: ${{ secrets.ARTIFACTORY_PASSWORD }}
-          build-name: 'spring-boot-3.3.x'
+          build-name: 'spring-boot-3.4.x'
           repository: 'libs-snapshot-local'
           folder: 'deployment-repository'
           signing-key: ${{ secrets.GPG_PRIVATE_KEY }}
           signing-passphrase: ${{ secrets.GPG_PASSPHRASE }}
-      - name: Trigger Docs Build Workflow
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh workflow run deploy-docs.yml -r docs-build -f build-refname=${{ github.ref_name }} -f build-version=${{ steps.build.outputs.version }}
       - name: Send Notification
         uses: ./.github/actions/send-notification
         if: always()
@@ -64,6 +58,17 @@ jobs:
         run: ./gradlew build sonar --info
     outputs:
       version: ${{ steps.build-and-publish.outputs.version }}
+  trigger-docs-build:
+    name: Trigger Docs Build
+    runs-on: ubuntu-latest
+    needs: build-and-deploy-snapshot
+    permissions:
+      actions: write
+    steps:
+      - name: Run Deploy Docs Workflow
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run deploy-docs.yml --repo spring-projects/spring-boot -r docs-build -f build-refname=${{ github.ref_name }} -f build-version=${{ needs.build-and-deploy-snapshot.outputs.version }}
   verify:
     name: Verify
     needs: build-and-deploy-snapshot

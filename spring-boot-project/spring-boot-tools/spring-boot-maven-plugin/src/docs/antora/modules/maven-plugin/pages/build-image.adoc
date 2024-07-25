@@ -134,8 +134,13 @@ The following table summarizes the available parameters and their default values
 
 | `builder` +
 (`spring-boot.build-image.builder`)
-| Name of the Builder image to use.
-| `paketobuildpacks/builder-jammy-base:latest`
+| Name of the builder image to use.
+| `paketobuildpacks/builder-jammy-tiny:latest`
+
+| `trustBuilder` +
+(`spring-boot.build-image.trustBuilder`)
+| Whether to treat the builder as https://buildpacks.io/docs/for-platform-operators/how-to/integrate-ci/pack/concepts/trusted_builders/#what-is-a-trusted-builder[trusted].
+| `true` if the builder is one of `paketobuildpacks/builder-jammy-tiny`, `paketobuildpacks/builder-jammy-base`, `paketobuildpacks/builder-jammy-full`, `paketobuildpacks/builder-jammy-buildpackless-tiny`, `paketobuildpacks/builder-jammy-buildpackless-base`, `paketobuildpacks/builder-jammy-buildpackless-full`, `gcr.io/buildpacks/builder`, `heroku/builder`; false otherwise.
 
 | `runImage` +
 (`spring-boot.build-image.runImage`)
@@ -250,7 +255,7 @@ For more details, see also xref:build-image.adoc#build-image.examples[examples].
 
 
 [[build-image.customization.tags]]
-=== Tags format
+=== Tags Format
 
 The values provided to the `tags` option should be *full* image references.
 The accepted format is `[domainHost:port/][path/]name[:tag][@digest]`.

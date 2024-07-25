@@ -48,7 +48,7 @@ spring:
       max-connections: 50
 ----
 
-TIP: See xref:api:java/org/springframework/boot/autoconfigure/jms/activemq/ActiveMQProperties.html[`ActiveMQProperties`] for more of the supported options.
+TIP: See javadoc:org.springframework.boot.autoconfigure.jms.activemq.ActiveMQProperties[] for more of the supported options.
 You can also register an arbitrary number of beans that implement `ActiveMQConnectionFactoryCustomizer` for more advanced customizations.
 
 By default, ActiveMQ "Classic" creates a destination if it does not yet exist so that destinations are resolved against their provided names.
@@ -103,7 +103,7 @@ spring:
       max-connections: 50
 ----
 
-See xref:api:java/org/springframework/boot/autoconfigure/jms/artemis/ArtemisProperties.html[`ArtemisProperties`] for more supported options.
+See javadoc:org.springframework.boot.autoconfigure.jms.artemis.ArtemisProperties[] for more supported options.
 
 No JNDI lookup is involved, and destinations are resolved against their names, using either the `name` attribute in the ActiveMQ Artemis configuration or the names provided through configuration.
 
@@ -144,6 +144,10 @@ When the JMS infrastructure is present, any bean can be annotated with `@JmsList
 If no `JmsListenerContainerFactory` has been defined, a default one is configured automatically.
 If a `DestinationResolver`, a `MessageConverter`, or a `jakarta.jms.ExceptionListener` beans are defined, they are associated automatically with the default factory.
 
+In most scenarios, message listener containers should be configured against the native `ConnectionFactory`.
+This way each listener container has its own connection and this gives full responsibility to it in terms of local recovery.
+The auto-configuration uses `ConnectionFactoryUnwrapper` to unwrap the native connection factory from the auto-configured one.
+
 By default, the default factory is transactional.
 If you run in an infrastructure where a `JtaTransactionManager` is present, it is associated to the listener container by default.
 If not, the `sessionTransacted` flag is enabled.
@@ -155,13 +159,15 @@ The following component creates a listener endpoint on the `someQueue` destinati
 
 include-code::MyBean[]
 
-TIP: See {url-spring-framework-javadoc}/org/springframework/jms/annotation/EnableJms.html[the Javadoc of `@EnableJms`] for more details.
+TIP: See the {url-spring-framework-javadoc}/org/springframework/jms/annotation/EnableJms.html[`@EnableJms`] API documentation for more details.
 
 If you need to create more `JmsListenerContainerFactory` instances or if you want to override the default, Spring Boot provides a `DefaultJmsListenerContainerFactoryConfigurer` that you can use to initialize a `DefaultJmsListenerContainerFactory` with the same settings as the one that is auto-configured.
 
 For instance, the following example exposes another factory that uses a specific `MessageConverter`:
 
 include-code::custom/MyJmsConfiguration[]
+
+NOTE: In the example above, the customization uses `ConnectionFactoryUnwrapper` to associate the native connection factory to the message listener container the same way the auto-configured factory does.
 
 Then you can use the factory in any `@JmsListener`-annotated method as follows:
 

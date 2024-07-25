@@ -12,7 +12,7 @@ This ahead-of-time processing involves statically analyzing your application cod
 A GraalVM Native Image is a complete, platform-specific executable.
 You do not need to ship a Java Virtual Machine in order to run a native image.
 
-TIP: If you just want to get started and experiment with GraalVM you can jump to the xref:how-to:native-image/developing-your-first-application.adoc[Developing Your First GraalVM Native Application] section and return to this section later.
+TIP: If you just want to get started and experiment with GraalVM you can jump to the xref:how-to:native-image/developing-your-first-application.adoc[] section and return to this section later.
 
 
 
@@ -100,7 +100,7 @@ There is a bean definition for the `myConfiguration` bean, and one for `myBean`.
 When a `myBean` instance is required, a `BeanInstanceSupplier` is called.
 This supplier will invoke the `myBean()` method on the `myConfiguration` bean.
 
-NOTE: During Spring AOT processing your application is started up to the point that bean definitions are available.
+NOTE: During Spring AOT processing, your application is started up to the point that bean definitions are available.
 Bean instances are not created during the AOT processing phase.
 
 Spring AOT will generate code like this for all your bean definitions.
