@@ -22,7 +22,7 @@ jobs:
       matrix:
         include:
         - language: java-kotlin
-          build-mode: manual
+          build-mode: none
         - language: javascript-typescript
           build-mode: none
         - language: ruby
@@ -38,10 +38,11 @@ jobs:
         languages: ${{ matrix.language }}
         build-mode: ${{ matrix.build-mode }}
 
-    - if: matrix.build-mode == 'manual'
-      name: Build Java project
-      run: |
-        ./gradlew clean build
+    # Commented out the build step for Java
+    # - if: matrix.build-mode == 'manual'
+    #   name: Build Java project
+    #   run: |
+    #     ./gradlew clean build
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
